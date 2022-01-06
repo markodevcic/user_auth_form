@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class LoginButton extends StatelessWidget {
   LoginButton({Key? key, required this.onPressed, required this.child}) : super(key: key);
@@ -14,7 +13,6 @@ class LoginButton extends StatelessWidget {
       child: ElevatedButton(
         child: child,
         style: ButtonStyle(
-          // backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
         ),
         onPressed: onPressed,

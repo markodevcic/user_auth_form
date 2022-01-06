@@ -55,7 +55,7 @@ class UserPage extends StatelessWidget {
                     ),
                   )
                 : (snapshot.hasError)
-                    ? Text('An error occured')
+                    ? Text('An error occurred')
                     : Scaffold(body: Center(child: CircularProgressIndicator()));
           }),
     );
