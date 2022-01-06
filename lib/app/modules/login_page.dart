@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide.none,
                     ),
-                    hintText: 'Username',
+                    hintText: 'Email',
                   ),
                 ),
                 SizedBox(height: 8),
