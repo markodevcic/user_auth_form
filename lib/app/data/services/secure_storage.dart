@@ -12,4 +12,8 @@ class SecureStorage {
     if (token == null) return "";
     return token;
   }
+
+  static Future<void> get deleteToken async {
+    return storage.delete(key: "jwt");
+  }
 }

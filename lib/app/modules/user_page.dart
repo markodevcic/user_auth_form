@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:user_auth_form/app/data/services/secure_storage.dart';
 import 'package:user_auth_form/app/data/services/server_connection.dart';
 import 'package:user_auth_form/app/modules/login_page.dart';
 import 'package:user_auth_form/app/data/models/user_data.dart';
@@ -21,7 +22,10 @@ class UserPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           TextButton(
-            onPressed: () => Get.off(() => LoginPage()),
+            onPressed: () {
+              SecureStorage.deleteToken;
+              Get.off(() => LoginPage());
+            },
             child: Text('Log out'),
           ),
         ],
