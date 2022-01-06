@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:user_auth_form/app/data/services/server_connection.dart';
+import 'package:user_auth_form/app/global_widgets/login_button.dart';
 
 import '/app/data/services/form_validation.dart';
 
@@ -12,6 +13,15 @@ class LoginPage extends StatelessWidget {
   final ServerConnection authenticate = ServerConnection();
 
   final RxBool isLoading = false.obs;
+
+  Future startLogin() async {
+    isLoading.value = true;
+    final bool canAttemptLogin = Validate.form(_username.text, _password.text);
+    if (canAttemptLogin) {
+      await authenticate.login(_username.text, _password.text);
+    }
+    isLoading.value = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +40,19 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   'Welcome!',
-                  style: TextStyle(fontSize: 48),
+                  style: TextStyle(fontSize: 40),
                 ),
-                SizedBox(height: 88),
+                Flexible(child: SizedBox(height: 77)),
                 TextFormField(
                   controller: _username,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
+                  autocorrect: false,
                   style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     isDense: true,
-                    fillColor: Colors.white12,
                     filled: true,
+                    fillColor: Colors.white12,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide.none,
@@ -53,12 +64,13 @@ class LoginPage extends StatelessWidget {
                 TextFormField(
                   controller: _password,
                   textInputAction: TextInputAction.go,
+                  onFieldSubmitted: (value) => startLogin(),
+                  autocorrect: false,
                   style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     isDense: true,
-                    fillColor: Colors.white12,
                     filled: true,
-                    focusColor: Colors.orange,
+                    fillColor: Colors.white12,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide.none,
@@ -67,28 +79,18 @@ class LoginPage extends StatelessWidget {
                   ),
                   obscureText: true,
                 ),
-                SizedBox(height: 52),
-                SizedBox(
-                  width: 150,
-                  height: 45,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                    ),
-                    onPressed: () async {
-                      final bool canAttemptLogin = Validate.form(_username.text, _password.text);
-                      if (canAttemptLogin) {
-                        isLoading.value = true;
-                        await authenticate.login(_username.text, _password.text);
-                        isLoading.value = false;
-                      }
-                    },
-                    child: Obx(
-                      () => (isLoading.value == true)
-                          ? CircularProgressIndicator.adaptive()
-                          : Text('Log in', style: TextStyle(fontSize: 18, color: Colors.white)),
-                    ),
+                Flexible(child: SizedBox(height: 32)),
+                LoginButton(
+                  onPressed: () => startLogin(),
+                  child: Obx(
+                    () => (isLoading.value == true)
+                        ? Transform.scale(
+                            scale: 0.7,
+                            child: CircularProgressIndicator.adaptive(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            ),
+                          )
+                        : Text('Log in', style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
                 ),
               ],

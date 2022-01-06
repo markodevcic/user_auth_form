@@ -29,7 +29,7 @@ class ServerConnection {
 
         SecureStorage.writeToken(token);
 
-        return Get.off(() => UserPage.fromBase64(token)); // arguments: [firstName, lastName]);
+        return Get.off(() => UserPage.fromBase64(token));
       } else {
         final error = json.decode(response.body.toString());
         return showSnackBar(error['errorMessage'].toString());

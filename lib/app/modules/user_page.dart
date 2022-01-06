@@ -21,7 +21,6 @@ class UserPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           TextButton(
-            style: TextButton.styleFrom(primary: Colors.deepOrange),
             onPressed: () => Get.off(() => LoginPage()),
             child: Text('Log out'),
           ),
@@ -37,10 +36,10 @@ class UserPage extends StatelessWidget {
                     child: Center(
                       child: Column(
                         children: [
-                          SizedBox(height: 88),
+                          SizedBox(height: 77),
                           Flexible(
                             child: Text('Welcome back ${userData!.firstName} ${userData.lastName}!',
-                                textAlign: TextAlign.center, style: TextStyle(fontSize: 48)),
+                                textAlign: TextAlign.center, style: TextStyle(fontSize: 40)),
                           ),
                           SizedBox(height: 52),
                           UserDetailsTile(
@@ -57,11 +56,7 @@ class UserPage extends StatelessWidget {
                   )
                 : (snapshot.hasError)
                     ? Text('An error occured')
-                    : Scaffold(
-                        body: Center(
-                            child: CircularProgressIndicator(
-                        color: Colors.deepOrange,
-                      )));
+                    : Scaffold(body: Center(child: CircularProgressIndicator()));
           }),
     );
   }

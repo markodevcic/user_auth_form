@@ -17,11 +17,7 @@ class RouteToPage extends StatelessWidget {
     return FutureBuilder(
       future: SecureStorage.getToken,
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(
-              child: CircularProgressIndicator(
-            color: Colors.deepOrange,
-          ));
+        if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
         if (snapshot.data != '') {
           final token = snapshot.data.toString();
           var jwt = token.split('.');

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '/app/global_widgets/initial_route_to_page.dart';
 
@@ -13,7 +14,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+        brightness: Brightness.dark,
+        textTheme: GoogleFonts.montserratTextTheme(ThemeData(brightness: Brightness.dark).textTheme),
+      ),
       home: RouteToPage(),
     );
   }
